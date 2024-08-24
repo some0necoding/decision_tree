@@ -4,6 +4,7 @@ local printTable = require('lib/tableprinter')
 
 local testedModules = {
     { name = "tableprinter", tests = require('tests/lib/tableprinter') },
+    { name = "statistics",   tests = require('tests/lib/statistics')   },
 }
 
 local function executeTests()

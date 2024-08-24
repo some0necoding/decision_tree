@@ -22,7 +22,7 @@ local function executeTests()
                     print("expected:")
                     print(error.expected)
                     print("inputs:")
-                    print(printTable(error.input))
+                    print(error.input)
                 end
             end
         end

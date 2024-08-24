@@ -55,7 +55,7 @@ function tableprinterTests.testPrintTable()
             table.insert(errors, {
                 actual = actual,
                 expected = expected[i],
-                input = input
+                input = printTable(input)
             }) 
         end
     end

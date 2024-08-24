@@ -14,7 +14,10 @@ function statistics.frequencies(dataset, feature, normalize)
         else
             freqs[value] = freqs[value] + 1
         end
-        n = n + 1
+
+        if normalize then
+            n = n + 1
+        end
     end 
 
     if normalize then

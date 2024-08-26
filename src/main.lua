@@ -20,28 +20,6 @@ local data = {
     { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
 }
 
-local function entropy(set, feature)
-    local freqs = statistics.frequencies(set, feature, true)
-    i = 1
-    for value, freq in pairs(freqs) do
-        freqs[i] = freq
-        i = i + 1
-    end
-    return statistics.entropy(freqs)
-end
-
-local function WeightedMeanEntropy(sets, feature)
-    local sum = 0
-    local totalElements = 0
-    for _, set in pairs(sets) do
-        local setElements = #set -- this assumes that a set is a sequence
-        totalElements = totalElements + setElements
-        sum = sum + (setElements * entropy(set, feature))
-    end
-
-    return sum / totalElements
-end
-
 local function split(set, feature)
     local groups = {}
     for _, elem in ipairs(set) do
@@ -65,7 +43,7 @@ local function splitByBestFeature(set, features, class)
     local bestFeatureIndex = nil
     for i, feature in ipairs(features) do
         local groups = split(set, feature)
-        local meanEntropy = WeightedMeanEntropy(groups, class)
+        local meanEntropy = statistics.weightedMeanEntropySets(groups, class)
         if not best.meanEntropy or meanEntropy < best.meanEntropy then
             best.meanEntropy = meanEntropy
             best.feature = feature
@@ -99,7 +77,7 @@ local function buildTree(set, features, class)
         label = nil,
     }
 
-    local e = entropy(set, class)
+    local e = statistics.entropySet(set, class)
     if e == 0 then
         node.label = set[1][class]
     elseif e > 0 and #features > 0 then

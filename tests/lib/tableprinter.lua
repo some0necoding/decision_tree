@@ -1,6 +1,7 @@
 #!/usr/bin/lua
 
-local printTable = require 'lib/tableprinter'
+local testFramework = require('tests/framework')
+local printTable    = require('lib/tableprinter')
 
 local tableprinterTests = {}
 
@@ -51,7 +52,7 @@ function tableprinterTests.testPrintTable()
             os.exit(-1)
         end
 
-        if actual ~= expected[i] then
+        if not testFramework.equals(actual, expected[i]) then
             table.insert(errors, {
                 actual = actual,
                 expected = expected[i],

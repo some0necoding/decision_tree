@@ -1,7 +1,8 @@
 #!/usr/bin/lua
 
-local printTable = require('lib/tableprinter')
-local statistics = require('lib/statistics')
+local testFramework = require('tests/framework')
+local printTable    = require('lib/tableprinter')
+local statistics    = require('lib/statistics')
 
 local statisticsTests = {}
 
@@ -63,7 +64,7 @@ function statisticsTests.testFrequencies()
         end
 
         local e = printTable(expected[i])
-        if actual ~= e then
+        if not testFramework.equals(actual, e) then
             table.insert(errors, {
                 actual = actual,
                 expected = e,
@@ -102,7 +103,7 @@ function statisticsTests.testEntropy()
             os.exit(-1)
         end
 
-        if actual ~= expected[i] then
+        if not testFramework.equals(actual, expected[i]) then
             table.insert(errors, {
                 actual = actual,
                 expected = expected[i],
@@ -163,7 +164,7 @@ function statisticsTests.testEntropySet()
             os.exit(-1)
         end
 
-        if actual ~= expected[i] then
+        if not testFramework.equals(actual, expected[i]) then
             table.insert(errors, {
                 actual = actual,
                 expected = expected[i],
@@ -276,7 +277,7 @@ function statisticsTests.testWeightedMeanEntropySets()
             os.exit(-1)
         end
 
-        if actual ~= expected[i] then
+        if not testFramework.equals(actual, expected[i]) then
             table.insert(errors, {
                 actual = actual,
                 expected = expected[i],

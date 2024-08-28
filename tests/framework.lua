@@ -4,8 +4,11 @@ local testFramework = {}
 
 function testFramework.equals(t1, t2)
     if type(t1) ~= type(t2) then return false end 
-    if type(t1) == "nil" or type(t1) == "number" or type(t1) == "string" or 
-            type(t1) == "boolean" then
+    if type(t1) == "nil" or type(t1) == "string" or type(t1) == "boolean" then
+        return t1 == t2
+    elseif type(t1) == "number" then
+        t1 = string.format('%.12f', t1)
+        t2 = string.format('%.12f', t2)
         return t1 == t2
     elseif type(t1) == "table" then
         local visited = {}

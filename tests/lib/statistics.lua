@@ -55,7 +55,7 @@ function statisticsTests.testFrequencies()
     local errors = {}
 
     for i, input in ipairs(inputs) do
-        local actual = printTable(statistics.frequencies(input.dataset, input.feature, input.normalized))
+        local actual = statistics.frequencies(input.dataset, input.feature, input.normalized)
 
         -- this should never happen
         if not expected[i] then
@@ -63,11 +63,10 @@ function statisticsTests.testFrequencies()
             os.exit(-1)
         end
 
-        local e = printTable(expected[i])
-        if not testFramework.equals(actual, e) then
+        if not testFramework.equals(actual, expected[i]) then
             table.insert(errors, {
                 actual = actual,
-                expected = e,
+                expected = printTable(expected[i]),
                 input = printTable(input)
             }) 
         end
@@ -86,16 +85,16 @@ function statisticsTests.testEntropy()
     }
 
     local expected = {
-        '1.00000000',
-        '0.00000000',
-        '1.56127812',
-        '1.90563906',
+        1.00000000,
+        0.00000000,
+        1.5612781244591,
+        1.9056390622296,
     }
 
     local errors = {}
 
     for i, input in ipairs(inputs) do
-        local actual = string.format('%.8f', statistics.entropy(input))
+        local actual = statistics.entropy(input)
 
         -- this should never happen
         if not expected[i] then

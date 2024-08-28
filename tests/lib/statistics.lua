@@ -1,8 +1,8 @@
 #!/usr/bin/lua
 
-local testFramework = require('tests/framework')
-local printTable    = require('lib/tableprinter')
-local statistics    = require('lib/statistics')
+local testFramework = require('tests.framework')
+local printTable    = require('lib.tableprinter')
+local statistics    = require('lib.statistics')
 
 local statisticsTests = {}
 
@@ -11,28 +11,28 @@ function statisticsTests.testFrequencies()
     local inputs = {
         {
             dataset = {
-                { ["name"] = "apple" },
-                { ["name"] = "apple" },
-                { ["name"] = "apple" },
-                { ["name"] = "banana" },
-                { ["name"] = "banana" },
-                { ["name"] = "orange" },
-                { ["name"] = "banana" },
-                { ["name"] = "orange" },
+                { name = "apple" },
+                { name = "apple" },
+                { name = "apple" },
+                { name = "banana" },
+                { name = "banana" },
+                { name = "orange" },
+                { name = "banana" },
+                { name = "orange" },
             },
             feature = "name",
             normalized = false,
         },
         {
             dataset = {
-                { ["name"] = "apple" },
-                { ["name"] = "apple" },
-                { ["name"] = "apple" },
-                { ["name"] = "banana" },
-                { ["name"] = "banana" },
-                { ["name"] = "orange" },
-                { ["name"] = "banana" },
-                { ["name"] = "orange" },
+                { name = "apple" },
+                { name = "apple" },
+                { name = "apple" },
+                { name = "banana" },
+                { name = "banana" },
+                { name = "orange" },
+                { name = "banana" },
+                { name = "orange" },
             },
             feature = "name",
             normalized = true,
@@ -41,14 +41,14 @@ function statisticsTests.testFrequencies()
 
     local expected = {
         {
-            ["apple"] = 3,
-            ["banana"] = 3,
-            ["orange"] = 2,
+            apple = 3,
+            banana = 3,
+            orange = 2,
         },
         {
-            ["apple"] = 0.375,
-            ["banana"] = 0.375,
-            ["orange"] = 0.25,
+            apple = 0.375,
+            banana = 0.375,
+            orange = 0.25,
         }
     }
 
@@ -119,28 +119,28 @@ function statisticsTests.testEntropySet()
     local inputs = {
         {
             set = {
-                { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'Si', },
+                { previsione = 'Nuvoloso', temperatura = 'Alta', umidita = 'Alta', vento = 'No', giocato = 'Si', },
             },
             feature = 'giocato'
         },
         {
             set = {
-                { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
+                { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
             },
             feature = 'giocato'
         },
         {
             set = {
-                { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'No', },
-                { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'Si', },
-                { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
+                { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'No', },
+                { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                { previsione = 'Soleggiato', temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                { previsione = 'Nuvoloso'  , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'Si', },
+                { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
             },
             feature = 'giocato'
         }
@@ -181,13 +181,13 @@ function statisticsTests.testWeightedMeanEntropySets()
         {
             sets = {
                 {
-                    { ['previsione'] = 'Nuvoloso', ['temperatura'] = 'Alta', ['umidita'] = 'Alta', ['vento'] = 'No', ['giocato'] = 'Si', },
+                    { previsione = 'Nuvoloso', temperatura = 'Alta', umidita = 'Alta', vento = 'No', giocato = 'Si', },
                 },
                 {
-                    { ['previsione'] = 'Nuvoloso', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
+                    { previsione = 'Nuvoloso', temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
                 },
                 {
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
                 }
             },
             feature = 'giocato'
@@ -195,16 +195,16 @@ function statisticsTests.testWeightedMeanEntropySets()
         {
             sets = {
                 {
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Alta', ['umidita'] = 'Alta', ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
                 },
                 {
-                    { ['previsione'] = 'Nuvoloso', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite', ['umidita'] = 'Alta', ['vento'] = 'No', ['giocato'] = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
                 },
                 {
-                    { ['previsione'] = 'Nuvoloso', ['temperatura'] = 'Alta', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia', ['temperatura'] = 'Mite', ['umidita'] = 'Alta', ['vento'] = 'Si', ['giocato'] = 'No', },
+                    { previsione = 'Nuvoloso', temperatura = 'Alta', umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia' , temperatura = 'Mite', umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
                 }
             },
             feature = 'giocato'
@@ -212,47 +212,47 @@ function statisticsTests.testWeightedMeanEntropySets()
         {
             sets = {
                 {
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
                 },
                 {
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'No', },
+                    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'No', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Normale', vento = 'No', giocato = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Normale', vento = 'Si', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Normale', vento = 'No', giocato = 'No', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
                 },
                 {
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Pioggia'   , ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'No', ['giocato'] = 'No', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Bassa', ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Soleggiato', ['temperatura'] = 'Mite' , ['umidita'] = 'Normale', ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Mite' , ['umidita'] = 'Alta'   , ['vento'] = 'Si', ['giocato'] = 'Si', },
-                    { ['previsione'] = 'Nuvoloso'  , ['temperatura'] = 'Alta' , ['umidita'] = 'Normale', ['vento'] = 'No', ['giocato'] = 'Si', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
+                    { previsione = 'Soleggiato', temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
+                    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Normale', vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'Si', },
+                    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
                 }
             },
             feature = 'giocato'

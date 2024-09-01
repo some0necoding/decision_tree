@@ -36,7 +36,7 @@ local function collect(...)
     return results
 end
 
-function testFramework.createTest(inputs, outputs, func)
+local function createTest(inputs, outputs, func)
     if #inputs ~= #outputs then
         error("inputs and outputs length differ!", 2)
     end
@@ -60,17 +60,24 @@ function testFramework.createTest(inputs, outputs, func)
     end
 end
 
-local testedModules = {}
+local testModules = {}
 
-function testFramework.addTestedModule(name, tests)
-    table.insert(testedModules, {
-        name = name,
-        tests = tests,
-    })
+function testFramework.newTestModule(modname)
+    local testModule = {
+        name = modname,
+        tests = {},
+        addTest = function (inputs, outputs, func, funcname)
+            local test = createTest(inputs, outputs, func)
+            table.insert(testModules[modname].tests, { func = test, name = funcname })
+        end
+    }
+    testModules[#testModules + 1] = testModule
+    testModules[modname] = testModule -- just to speed up the lookup for addTest function
+    return testModule
 end
 
 function testFramework.test()
-    for _, testedModule in pairs(testedModules) do
+    for _, testedModule in ipairs(testModules) do
         print("== Testing " .. testedModule.name)
         for _, test in ipairs(testedModule.tests) do
             local errors = test.func()

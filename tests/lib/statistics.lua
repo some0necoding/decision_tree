@@ -3,10 +3,10 @@
 local testFramework = require('tests.framework')
 local statistics    = require('lib.statistics')
 
-local statisticsTests = {}
+local statisticsTests = testFramework.newTestModule('statistics')
 
-function statisticsTests.testFrequencies()
-
+-- add statistics.frequencies() tests
+do
     local inputs = {
         {
             {
@@ -55,11 +55,11 @@ function statisticsTests.testFrequencies()
         }
     }
 
-    return testFramework.createTest(inputs, expected, statistics.frequencies)
+    statisticsTests.addTest(inputs, expected, statistics.frequencies, 'frequencies')
 end
 
-function statisticsTests.testEntropy()
-
+-- add statistics.entropy() tests
+do
     local inputs = {
         {{ 0.5, 0.5, }},
         {{ 1, 0, }},
@@ -74,11 +74,11 @@ function statisticsTests.testEntropy()
         { 1.9056390622296 },
     }
 
-    return testFramework.createTest(inputs, expected, statistics.entropy)
+    statisticsTests.addTest(inputs, expected, statistics.entropy, 'entropy')
 end
 
-function statisticsTests.testEntropySet()
-
+-- add statistics.entropySet() tests
+do
     local inputs = {
         {
             {
@@ -115,11 +115,11 @@ function statisticsTests.testEntropySet()
         { 0.91829583405449 },
     }
 
-    return testFramework.createTest(inputs, expected, statistics.entropySet)
+    statisticsTests.addTest(inputs, expected, statistics.entropySet, 'entropySet')
 end
 
-function statisticsTests.testWeightedMeanEntropySets()
-
+-- add statistics.weightedMeanEntropySets() tests
+do
     local inputs = {
         {
             {
@@ -208,12 +208,5 @@ function statisticsTests.testWeightedMeanEntropySets()
         { 0.61866435154978 },
     }
 
-    return testFramework.createTest(inputs, expected, statistics.weightedMeanEntropySets)
+    statisticsTests.addTest(inputs, expected, statistics.weightedMeanEntropySets, 'weightedMeanEntropySets')
 end
-
-return {
-    { func = statisticsTests.testFrequencies(),               name = "statisticsTests.testFrequencies" },
-    { func = statisticsTests.testEntropy(),                   name = "statisticsTests.testEntropy" },
-    { func = statisticsTests.testEntropySet(),                name = "statisticsTests.testEntropySet" },
-    { func = statisticsTests.testWeightedMeanEntropySets(),   name = "statisticsTests.testWeightedMeanEntropySets" },
-}

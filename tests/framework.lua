@@ -13,13 +13,13 @@ function testFramework.equals(t1, t2)
     elseif type(t1) == "table" then
         local visited = {}
         for key, value in pairs(t1) do
-            if not t2[key] or t2[key] ~= value then
+            if not t2[key] or not testFramework.equals(t2[key], value) then
                 return false
             end
             visited[key] = true
         end
         for key, value in pairs(t2) do
-            if not visited[key] and (not t1[key] or t1[key] ~= value) then
+            if not visited[key] and (not t1[key] or not testFramework.equals(t1[key], value)) then
                 return false
             end
         end

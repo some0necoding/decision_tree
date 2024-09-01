@@ -1,9 +1,10 @@
 #!/usr/bin/lua
 
+local printTable = require('lib.tableprinter')
 local testFramework = {}
 
 function testFramework.equals(t1, t2)
-    if type(t1) ~= type(t2) then return false end 
+    if type(t1) ~= type(t2) then return false end
     if type(t1) == "nil" or type(t1) == "string" or type(t1) == "boolean" then
         return t1 == t2
     elseif type(t1) == "number" then

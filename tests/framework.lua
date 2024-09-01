@@ -27,6 +27,39 @@ function testFramework.equals(t1, t2)
     return true
 end
 
+local function collect(...)
+    local results = {}
+    for _, result in ipairs({...}) do
+        results[#results + 1] = result
+    end
+    return results
+end
+
+function testFramework.createTest(inputs, outputs, func)
+    return function ()
+        local errors = {}
+
+        for i, input in ipairs(inputs) do
+            local results = collect(func(table.unpack(input)))
+
+            -- this should not happen
+            if not outputs[i] then
+                error("test does not have expected result associated!")
+            end
+
+            if not testFramework.equals(results, outputs[i]) then
+                table.insert(errors, {
+                    actual = results,
+                    expected = outputs[i],
+                    input = input
+                })
+            end
+        end
+
+        return errors
+    end
+end
+
 local testedModules = {}
 
 function testFramework.addTestedModule(name, tests)

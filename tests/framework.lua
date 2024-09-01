@@ -37,16 +37,15 @@ local function collect(...)
 end
 
 function testFramework.createTest(inputs, outputs, func)
+    if #inputs ~= #outputs then
+        error("inputs and outputs length differ!", 2)
+    end
+
     return function ()
         local errors = {}
 
         for i, input in ipairs(inputs) do
             local results = collect(func(table.unpack(input)))
-
-            -- this should not happen
-            if not outputs[i] then
-                error("test does not have expected result associated!")
-            end
 
             if not testFramework.equals(results, outputs[i]) then
                 table.insert(errors, {

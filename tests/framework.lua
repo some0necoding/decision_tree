@@ -1,6 +1,6 @@
 #!/usr/bin/lua
 
-local printTable = require('lib.tableprinter')
+local pretty = require('lib.pretty')
 local testFramework = {}
 
 function testFramework.equals(t1, t2)
@@ -14,7 +14,7 @@ function testFramework.equals(t1, t2)
     elseif type(t1) == "table" then
         local visited = {}
         for key, value in pairs(t1) do
-            if not t2[key] or not testFramework.equals(t2[key], value) then
+            if not t2[key] or not testFramework.equals(value, t2[key]) then
                 return false
             end
             visited[key] = true
@@ -87,11 +87,11 @@ function testFramework.test()
                 print("!!! FAIL ", test.name)
                 for _, error in ipairs(errors) do
                     print("actual:")
-                    print(error.actual)
+                    print(pretty.tostring(error.actual))
                     print("expected:")
-                    print(error.expected)
+                    print(pretty.tostring(error.expected))
                     print("inputs:")
-                    print(error.input)
+                    print(pretty.tostring(error.input))
                 end
             end
         end

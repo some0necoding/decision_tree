@@ -1,12 +1,24 @@
 #!/usr/bin/lua
 
 local testFramework = require('tests.framework')
-local printTable    = require('lib.tableprinter')
+local pretty        = require('lib.pretty')
 
-local tableprinterTests = testFramework.newTestModule('tableprinter')
+local prettyTests = testFramework.newTestModule('pretty')
 
 do
     local inputs = {
+        {
+            10
+        },
+        {
+            1.0987345
+        },
+        {
+            'a string'
+        },
+        {
+            true
+        },
         {
             {
                 'a string',
@@ -27,6 +39,18 @@ do
 
     local expected = {
         {
+            '10'
+        },
+        {
+            '1.0987345'
+        },
+        {
+            '\'a string\''
+        },
+        {
+            'true'
+        },
+        {
             [[
 {
     1: 'a string',
@@ -44,5 +68,5 @@ do
         },
     }
 
-    tableprinterTests.addTest(inputs, expected, printTable, 'printTable')
+    prettyTests.addTest(inputs, expected, pretty.tostring, 'tostring')
 end

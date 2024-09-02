@@ -1,7 +1,7 @@
 #!/usr/bin/lua
 
-local statistics = require('lib/statistics')
 local pretty     = require('lib.pretty')
+local statistics = require('lib.statistics')
 
 local data = {
     { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },

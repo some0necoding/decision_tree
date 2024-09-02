@@ -9,11 +9,7 @@ function statistics.frequencies(set, feature, normalize)
     local n = 0
     for _, elem in ipairs(set) do
         local value = elem[feature]
-        if not freqs[value] then
-            freqs[value] = 1
-        else
-            freqs[value] = freqs[value] + 1
-        end
+        freqs[value] = (freqs[value] or 0) + 1
 
         if normalize then
             n = n + 1
@@ -41,18 +37,17 @@ end
 
 function statistics.entropySet(set, feature)
     local freqs = statistics.frequencies(set, feature, true)
-    local i = 1
+    local freqsList = {}
     for _, freq in pairs(freqs) do
-        freqs[i] = freq
-        i = i + 1
+        freqsList[#freqsList + 1] = freq
     end
-    return statistics.entropy(freqs)
+    return statistics.entropy(freqsList)
 end
 
 function statistics.weightedMeanEntropySets(sets, feature)
     local sum = 0
     local totalElements = 0
-    for _, set in pairs(sets) do
+    for _, set in ipairs(sets) do
         local setElements = #set -- this assumes that a set is a sequence
         totalElements = totalElements + setElements
         sum = sum + (setElements * statistics.entropySet(set, feature))

@@ -1,7 +1,7 @@
 #!/usr/bin/lua
 
-local printTable = require('lib/tableprinter')
 local statistics = require('lib/statistics')
+local pretty     = require('lib.pretty')
 
 local data = {
     { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
@@ -98,4 +98,4 @@ local function buildTree(set, features, class)
 end
 
 local tree = buildTree(data, { "previsione", "temperatura", "umidita", "vento" }, "giocato")
-print(printTable(tree))
+pretty.print(tree)

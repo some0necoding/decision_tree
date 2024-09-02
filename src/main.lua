@@ -97,5 +97,5 @@ local function buildTree(set, features, class)
     return node
 end
 
-local tree = buildTree(data, { "previsione", "temperatura", "umidita", "vento" }, "giocato")
+local tree = buildTree(data, { 'previsione', 'temperatura', 'umidita', 'vento' }, 'giocato')
 pretty.print(tree)

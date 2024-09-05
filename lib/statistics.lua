@@ -53,7 +53,7 @@ function statistics.weightedMeanEntropySets(sets, feature)
         sum = sum + (setElements * statistics.entropySet(set, feature))
     end
 
-    return sum / totalElements
+    return (sum == 0 and totalElements == 0) and 0 or sum / totalElements
 end
 
 return statistics

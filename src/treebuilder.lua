@@ -5,13 +5,19 @@ local statistics = require('lib.statistics')
 local treebuilder = {}
 
 function treebuilder._split(set, feature)
-    local groups = {}
+    local groupsList = {}
+    local groupsTable = {} -- maps feature value to groupsList index
+
     for _, elem in ipairs(set) do
         local value = elem[feature]
-        groups[value] = groups[value] or {}
-        groups[value][#groups[value] + 1] = elem
+        if not groupsTable[value] then
+            groupsList[#groupsList+1] = {}
+            groupsTable[value] = #groupsList
+        end
+        table.insert(groupsList[groupsTable[value]], elem)
     end
-    return groups
+
+    return groupsList
 end
 
 function treebuilder._splitByBestFeature(set, features, class)
@@ -60,8 +66,9 @@ function treebuilder.buildTree(set, features, class)
         node.label = set[1][class]
     elseif entropy > 0 and #features > 0 then
         local bestSplit = treebuilder._splitByBestFeature(set, features, class)
-        for value, group in pairs(bestSplit.groups) do
+        for _, group in ipairs(bestSplit.groups) do
             local childNode = treebuilder.buildTree(group, features, class)
+            local value = group[1][bestSplit.feature]
             node.feature = bestSplit.feature
             node.domain = node.domain or {}
             node.domain[value] = childNode

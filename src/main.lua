@@ -1,24 +1,27 @@
 #!/usr/bin/lua
 
-local pretty      = require('lib.pretty')
 local treebuilder = require('src.treebuilder')
 
-local data = {
-    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
-    { previsione = 'Soleggiato', temperatura = 'Alta' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
-    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
-    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'Si', },
-    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
-    { previsione = 'Pioggia'   , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'No', },
-    { previsione = 'Nuvoloso'  , temperatura = 'Bassa', umidita = 'Normale', vento = 'Si', giocato = 'Si', },
-    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Alta'   , vento = 'No', giocato = 'No', },
-    { previsione = 'Soleggiato', temperatura = 'Bassa', umidita = 'Normale', vento = 'No', giocato = 'Si', },
-    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
-    { previsione = 'Soleggiato', temperatura = 'Mite' , umidita = 'Normale', vento = 'Si', giocato = 'Si', },
-    { previsione = 'Nuvoloso'  , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'Si', },
-    { previsione = 'Nuvoloso'  , temperatura = 'Alta' , umidita = 'Normale', vento = 'No', giocato = 'Si', },
-    { previsione = 'Pioggia'   , temperatura = 'Mite' , umidita = 'Alta'   , vento = 'Si', giocato = 'No', },
-}
+local decisionTree = {}
+local tree = nil
 
-local tree = treebuilder.buildTree(data, { 'previsione', 'temperatura', 'umidita', 'vento' }, 'giocato')
-pretty.print(tree)
+function decisionTree.fit(set, features, class)
+    tree = treebuilder.buildTree(set, features, class)
+end
+
+function decisionTree.predict(record)
+    if not tree then return end
+    while tree.label == nil do
+        local feature = tree.feature
+        local v = record[feature]
+        for value, node in pairs(tree.domain) do
+            if v == value then
+                tree = node
+                break
+            end
+        end
+    end
+    return tree.label
+end
+
+return decisionTree
